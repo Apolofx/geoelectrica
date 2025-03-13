@@ -1,8 +1,12 @@
+import { makeAutoObservable } from "mobx";
 import { Medicion } from "../Medicion";
 import { MedicionRepetidaError } from "../exceptions";
 
 export class SondeoElectrico {
-  private mediciones: Medicion[] = [];
+  static TABLA_A_B_SOBRE_2 = [
+    2, 3, 4, 5, 6, 8, 13, 16, 20, 25, 30, 40, 50, 60, 80, 100, 120, 150, 190,
+    240, 300, 400, 500,
+  ];
   constructor(
     private provincia: string,
     private sevNro: number,
@@ -11,10 +15,17 @@ export class SondeoElectrico {
     private zona: string,
     private fecha: Date,
     private coordenadas: string,
-    private observaciones: string
-  ) {}
+    private observaciones: string,
+    private mediciones: Medicion[] = []
+  ) {
+    makeAutoObservable(this);
+  }
 
   // Getters
+  getID() {
+    return this.sevNro;
+  }
+
   getProvincia() {
     return this.provincia;
   }
@@ -50,7 +61,10 @@ export class SondeoElectrico {
   getMediciones() {
     return this.mediciones;
   }
-
+  hasMediciones() {
+    const mediciones = this.getMediciones();
+    return Boolean(mediciones.length);
+  }
   addMedicion(medicion: Medicion) {
     const duplicated = this.getMediciones().find(
       (m) => m.getID() === medicion.getID()
@@ -59,10 +73,30 @@ export class SondeoElectrico {
     this.mediciones.push(medicion);
   }
 
-  removeLastMedicion(_medicion: Medicion) {
+  getLastMedicion() {
+    const sorted = this.getMediciones().slice().sort(
+      (m1, m2) => m1.getA_B_Sobre2() - m2.getA_B_Sobre2()
+    );
+    return sorted.at(-1);
+  }
+  getNextMedicionParams() {
+    const lastMedicion = this.getLastMedicion();
+    if (!lastMedicion)
+      return { a_b_sobre2: SondeoElectrico.TABLA_A_B_SOBRE_2[0], mn: 2 };
+    const lastMedicionIndex = SondeoElectrico.TABLA_A_B_SOBRE_2.findIndex(
+      (a_b_sobre2) => a_b_sobre2 === lastMedicion.getA_B_Sobre2()
+    );
+    const nextMedicionParams = {
+      a_b_sobre2: SondeoElectrico.TABLA_A_B_SOBRE_2[lastMedicionIndex + 1],
+      mn: lastMedicion.getMN(),
+    };
+    return nextMedicionParams;
+  }
+
+  removeLastMedicion() {
     this.mediciones.pop();
   }
-  getMedicionByID(id: string) {
+  getMedicionByID(id: number) {
     const medicion = this.getMediciones().find((m) => m.getID() === id);
     return medicion;
   }

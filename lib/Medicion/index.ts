@@ -1,4 +1,4 @@
-  export class Medicion {
+export class Medicion {
   constructor(
     private readonly a_b_sobre2: number,
     private mn: number,
@@ -16,7 +16,7 @@
     };
   }
   getID() {
-    return `${this.a_b_sobre2}-${this.mn}`;
+    return this.a_b_sobre2;
   }
   getResistividadAparente() {
     return (
@@ -35,14 +35,5 @@
   }
   getTension() {
     return this.tension;
-  }
-  setMN(mn: number) {
-    this.mn = mn;
-  }
-  setIntensidad(intensidad: number) {
-    this.intensidad = intensidad;
-  }
-  setTension(tension: number) {
-    this.tension = tension;
   }
 }

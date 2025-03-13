@@ -1,0 +1,37 @@
+#app {
+  max-width: min(100vw, 900px);
+  width: 100%;
+  /* margin: 0 auto; */
+  padding: 1rem;
+  box-sizing: border-box;
+}
+
+:root {
+  --bg-danger: #f5a898;
+}
+
+table,
+th,
+td {
+  border: 1px solid black;
+}
+
+h2,
+h3,
+h4 {
+  margin: 0;
+}
+
+.link-button {
+  padding: 4px 8px;
+}
+
+.danger-bg {
+  background-color: var(--bg-danger);
+}
+.fixed-bottom-right {
+  position: fixed;
+  justify-content: center;
+  bottom: 10px;
+  right: 10px;
+}

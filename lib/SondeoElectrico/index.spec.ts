@@ -62,7 +62,27 @@ describe("Un sondeo electrico", () => {
     const medicion2 = new Medicion(3, 2, 10, 10);
     sev.addMedicion(medicion1);
     sev.addMedicion(medicion2);
-    sev.removeLastMedicion(medicion2);
+    sev.removeLastMedicion();
     expect(sev.getMediciones().length).toEqual(1);
+  });
+  test("debería permitir informar si existen o no mediciones realizadas", () => {
+    const medicion1 = new Medicion(2, 2, 10, 10);
+    const medicion2 = new Medicion(3, 2, 10, 10);
+    sev.addMedicion(medicion1);
+    sev.addMedicion(medicion2);
+    expect(sev.hasMediciones()).toEqual(true);
+    sev.removeLastMedicion();
+    sev.removeLastMedicion();
+    expect(sev.hasMediciones()).toEqual(false);
+  });
+  test("debería poder obtener los parametros iniciales de la siguiente medicion", () => {
+    const medicion1 = new Medicion(2, 2, 10, 10);
+    const medicion2 = new Medicion(3, 2, 10, 10);
+    sev.addMedicion(medicion1);
+    sev.addMedicion(medicion2);
+    expect(sev.getNextMedicionParams()).toEqual({ a_b_sobre2: 4, mn: 2 });
+    sev.removeLastMedicion();
+    sev.removeLastMedicion();
+    expect(sev.getNextMedicionParams()).toEqual({ a_b_sobre2: 2, mn: 2 });
   });
 });
