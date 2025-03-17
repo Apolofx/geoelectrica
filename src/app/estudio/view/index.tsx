@@ -1,6 +1,7 @@
 import { observer } from "mobx-react-lite";
 import { Link, useParams } from "react-router";
 import store from "store";
+import { PageLayout } from "components";
 /**
  * Esta vista debería renderizar la lista de sondeos correspondiente a un estudio.
  * La lista de sondeo la vamos a obtener usando:
@@ -13,7 +14,7 @@ const ViewEstudio = observer(() => {
   const estudio = historial.getEstudioPorID(id);
   const sondeos = estudio.getSondeos();
   return (
-    <>
+    <PageLayout backTo={`/`}>
       <h3>Cliente: {estudio.getCliente()}</h3>
       <h3>Zona: {estudio.getZona()}</h3>
       <h3>Fecha: {estudio.getFecha().toLocaleDateString("es-AR")}</h3>
@@ -62,7 +63,7 @@ const ViewEstudio = observer(() => {
           <button>Nuevo Sondeo</button>
         </Link>
       </div>
-    </>
+    </PageLayout>
   );
 });
 

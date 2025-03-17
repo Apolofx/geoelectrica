@@ -2,6 +2,7 @@ import { observer } from "mobx-react-lite";
 import { Estudio } from "lib";
 import store from "store";
 import { useNavigate } from "react-router";
+import { PageLayout } from "components";
 /**
  * Esta vista se encarga de crear un nuevo estudio de geoelectrica:
  */
@@ -24,12 +25,7 @@ const NuevoEstudio = observer(() => {
     navigate(`/e/${estudio.getID()}`);
   };
   return (
-    <div
-      style={{
-        display: "flex",
-        flexDirection: "column",
-      }}
-    >
+    <PageLayout>
       <h1>Nuevo Estudio</h1>
       <form
         onSubmit={handleSubmit}
@@ -48,7 +44,7 @@ const NuevoEstudio = observer(() => {
         <input type="text" id="zone" name="zone" required />
         <button type="submit">Crear</button>
       </form>
-    </div>
+    </PageLayout>
   );
 });
 export default NuevoEstudio;
