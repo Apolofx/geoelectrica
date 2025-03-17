@@ -1,3 +1,4 @@
+import { PageLayout } from "components";
 import "./app.css";
 import { observer } from "mobx-react-lite";
 import { Link } from "react-router";
@@ -6,7 +7,7 @@ import store from "store";
 export const App = observer(() => {
   const { historialDeEstudios: historial } = store;
   return (
-    <>
+    <PageLayout showBackButton={false}>
       <h3>Historial de Estudios</h3>
       {/* Empty estudios */}
       {!historial.getEstudios().length && <p>No hay estudios registrados</p>}
@@ -52,6 +53,6 @@ export const App = observer(() => {
           <button>Nuevo Estudio</button>
         </Link>
       </div>
-    </>
+    </PageLayout>
   );
 });

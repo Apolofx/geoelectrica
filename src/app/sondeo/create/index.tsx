@@ -3,10 +3,11 @@ import { SondeoElectrico } from "lib";
 import { observer } from "mobx-react-lite";
 import { useNavigate, useParams } from "react-router";
 import store from "store";
+import { PageLayout } from "components";
 
 /**
  * Route: /e/:eid/s/create
- * Esta vista debería permitir crear y agregar un nuevo sondeo a un 
+ * Esta vista debería permitir crear y agregar un nuevo sondeo a un
  * estudio ya creado, usando el ID del estudio obtenido del path
  */
 
@@ -38,7 +39,7 @@ const NuevoSondeo = observer(() => {
   };
 
   return (
-    <div>
+    <PageLayout>
       <h1>Nuevo Sondeo</h1>
       <form
         onSubmit={handleSubmit}
@@ -64,18 +65,18 @@ const NuevoSondeo = observer(() => {
         <label htmlFor="latitud">Coordenadas</label>
         <div style={{ display: "flex", gap: "10px" }}>
           <input
-            style={{ width: "150px" }}
             type="text"
             id="latitud"
             name="latitud"
+            style={{ width: "100%" }}
             required
           />
           <input
-            style={{ width: "150px" }}
             type="text"
             id="longitud"
             name="longitud"
             required
+            style={{ width: "100%" }}
           />
         </div>
 
@@ -84,7 +85,7 @@ const NuevoSondeo = observer(() => {
 
         <button type="submit">Crear Sondeo</button>
       </form>
-    </div>
+    </PageLayout>
   );
 });
 

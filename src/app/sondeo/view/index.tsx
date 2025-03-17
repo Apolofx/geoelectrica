@@ -1,7 +1,7 @@
 import { observer } from "mobx-react-lite";
 import { useParams } from "react-router";
 import store from "store";
-import { LinkButton } from "components";
+import { LinkButton, PageLayout } from "components";
 /**
  * Route: /e/:eid/s/:sid
  * Esta ruta debería permitir visualizar la "planilla" de un sondeo
@@ -18,7 +18,7 @@ const ViewSondeo = observer(() => {
   const estudio = historial.getEstudioPorID(estudioID);
   const sondeo = estudio.getSondeoByID(Number(sondeoID));
   return (
-    <>
+    <PageLayout backTo={`/e/${estudioID}`}>
       <h1>Detalles de Sondeo {sondeo.getSevNro()}</h1>
       <h3>Coordenadas: {sondeo.getCoordenadas()}</h3>
       <h3>Zona: {sondeo.getZona()}</h3>
@@ -66,6 +66,7 @@ const ViewSondeo = observer(() => {
           </button>
         </div>
       )}
+
       <div
         style={{
           position: "fixed",
@@ -78,7 +79,7 @@ const ViewSondeo = observer(() => {
           Nueva medición
         </LinkButton>
       </div>
-    </>
+    </PageLayout>
   );
 });
 

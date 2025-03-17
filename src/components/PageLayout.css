@@ -1,0 +1,23 @@
+.page-navbar {
+  display: flex;
+  position: fixed;
+  background-color: #f0f0f0;
+  width: 100%;
+  height: 50px;
+  top: 0;
+  left: 0;
+  z-index: 100;
+  align-items: center;
+  padding: 0 1rem;
+  border-bottom: 1px solid #ccc;
+}
+
+.page-content {
+  display: flex;
+  flex-direction: column;
+  padding-top: 16px;
+}
+
+.page-content > *:first-child {
+  margin-top: 0 !important;
+}
