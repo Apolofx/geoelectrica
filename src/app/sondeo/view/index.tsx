@@ -2,6 +2,7 @@ import { observer } from "mobx-react-lite";
 import { useParams } from "react-router";
 import store from "store";
 import { LinkButton, PageLayout } from "components";
+import "./index.css";
 /**
  * Route: /e/:eid/s/:sid
  * Esta ruta debería permitir visualizar la "planilla" de un sondeo
