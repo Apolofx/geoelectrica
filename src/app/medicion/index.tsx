@@ -4,7 +4,7 @@ import { observer } from "mobx-react-lite";
 import React from "react";
 import { useNavigate, useParams } from "react-router";
 import store from "store";
-
+import { PageLayout } from "components";
 const NuevaMedicion = observer(() => {
   const navigate = useNavigate();
   const inputIntensidad = React.useRef<HTMLInputElement>(null);
@@ -41,7 +41,7 @@ const NuevaMedicion = observer(() => {
     []
   );
   return (
-    <>
+    <PageLayout backTo={`/e/${estudioID}/s/${sondeoID}`}>
       <h1>Nueva Medicion</h1>
       <form
         onSubmit={handleSubmit}
@@ -68,7 +68,7 @@ const NuevaMedicion = observer(() => {
         <input type="number" id="tension" name="tension" required />
         <button type="submit">Guardar</button>
       </form>
-    </>
+    </PageLayout>
   );
 });
 
