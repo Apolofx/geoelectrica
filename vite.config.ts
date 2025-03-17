@@ -16,6 +16,7 @@ export default defineConfig({
         display: "standalone",
         background_color: "#ffffff",
         lang: "es",
+        id: "geoelectrica-consolani",
         icons: [
           {
             src: "/icon-192x192.png",
