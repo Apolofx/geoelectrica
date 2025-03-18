@@ -20,7 +20,6 @@ const NuevaMedicion = observer(() => {
     e.preventDefault();
     const form = e.target as HTMLFormElement;
     const formData = new FormData(form);
-    console.log(form);
     const a_b = formData.get("a_b_sobre2");
     const m_n = formData.get("m_n");
     const intensidad = formData.get("intensidad");
@@ -62,10 +61,19 @@ const NuevaMedicion = observer(() => {
           id="intensidad"
           name="intensidad"
           required
+          min={0}
+          step={0.0001}
           ref={inputIntensidad}
         />
         <label htmlFor="tension">Tension (mV)</label>
-        <input type="number" id="tension" name="tension" required />
+        <input
+          type="number"
+          id="tension"
+          name="tension"
+          required
+          min={0}
+          step={0.0001}
+        />
         <button type="submit">Guardar</button>
       </form>
     </PageLayout>

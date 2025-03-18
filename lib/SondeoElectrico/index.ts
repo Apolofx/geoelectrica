@@ -4,8 +4,8 @@ import { MedicionRepetidaError } from "../exceptions";
 
 export class SondeoElectrico {
   static TABLA_A_B_SOBRE_2 = [
-    2, 3, 4, 5, 6, 8, 13, 16, 20, 25, 30, 40, 50, 60, 80, 100, 120, 150, 190,
-    240, 300, 400, 500,
+    2, 3, 4, 5, 6, 8, 10, 13, 16, 20, 25, 30, 40, 50, 60, 80, 100, 120, 150,
+    190, 240, 300, 400, 500,
   ];
   constructor(
     private provincia: string,
@@ -74,21 +74,22 @@ export class SondeoElectrico {
   }
 
   getLastMedicion() {
-    const sorted = this.getMediciones().slice().sort(
-      (m1, m2) => m1.getA_B_Sobre2() - m2.getA_B_Sobre2()
-    );
+    const sorted = this.getMediciones()
+      .slice()
+      .sort((m1, m2) => m1.getA_B_Sobre2() - m2.getA_B_Sobre2());
     return sorted.at(-1);
   }
   getNextMedicionParams() {
     const lastMedicion = this.getLastMedicion();
     if (!lastMedicion)
-      return { a_b_sobre2: SondeoElectrico.TABLA_A_B_SOBRE_2[0], mn: 2 };
+      return {
+        a_b_sobre2: SondeoElectrico.TABLA_A_B_SOBRE_2[0],
+      };
     const lastMedicionIndex = SondeoElectrico.TABLA_A_B_SOBRE_2.findIndex(
       (a_b_sobre2) => a_b_sobre2 === lastMedicion.getA_B_Sobre2()
     );
     const nextMedicionParams = {
       a_b_sobre2: SondeoElectrico.TABLA_A_B_SOBRE_2[lastMedicionIndex + 1],
-      mn: lastMedicion.getMN(),
     };
     return nextMedicionParams;
   }
@@ -96,7 +97,7 @@ export class SondeoElectrico {
   removeLastMedicion() {
     this.mediciones.pop();
   }
-  getMedicionByID(id: number) {
+  getMedicionByID(id: string) {
     const medicion = this.getMediciones().find((m) => m.getID() === id);
     return medicion;
   }

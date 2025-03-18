@@ -80,9 +80,11 @@ describe("Un sondeo electrico", () => {
     const medicion2 = new Medicion(3, 2, 10, 10);
     sev.addMedicion(medicion1);
     sev.addMedicion(medicion2);
-    expect(sev.getNextMedicionParams()).toEqual({ a_b_sobre2: 4, mn: 2 });
+    expect(sev.getNextMedicionParams()).toEqual({ a_b_sobre2: 4 });
     sev.removeLastMedicion();
     sev.removeLastMedicion();
-    expect(sev.getNextMedicionParams()).toEqual({ a_b_sobre2: 2, mn: 2 });
+    expect(sev.getNextMedicionParams()).toEqual({
+      a_b_sobre2: 2,
+    });
   });
 });

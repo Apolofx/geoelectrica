@@ -1,7 +1,7 @@
 import { observer } from "mobx-react-lite";
 import { useParams } from "react-router";
 import store from "store";
-import { LinkButton, PageLayout } from "components";
+import { LinkButton, PageLayout, SondeoGraph } from "components";
 import "./index.css";
 /**
  * Route: /e/:eid/s/:sid
@@ -18,6 +18,7 @@ const ViewSondeo = observer(() => {
   const { historialDeEstudios: historial } = store;
   const estudio = historial.getEstudioPorID(estudioID);
   const sondeo = estudio.getSondeoByID(Number(sondeoID));
+
   return (
     <PageLayout backTo={`/e/${estudioID}`}>
       <h1>Detalles de Sondeo {sondeo.getSevNro()}</h1>
@@ -50,6 +51,9 @@ const ViewSondeo = observer(() => {
           </tbody>
         </table>
       )}
+
+      <SondeoGraph mediciones={sondeo.getMediciones()} />
+
       {sondeo.hasMediciones() && (
         <div
           style={{
