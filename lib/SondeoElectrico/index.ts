@@ -7,6 +7,7 @@ export class SondeoElectrico {
     2, 3, 4, 5, 6, 8, 10, 13, 16, 20, 25, 30, 40, 50, 60, 80, 100, 120, 150,
     190, 240, 300, 400, 500,
   ];
+
   constructor(
     private provincia: string,
     private sevNro: number,
@@ -21,7 +22,6 @@ export class SondeoElectrico {
     makeAutoObservable(this);
   }
 
-  // Getters
   getID() {
     return this.sevNro;
   }
@@ -61,24 +61,18 @@ export class SondeoElectrico {
   getMediciones() {
     return this.mediciones;
   }
+
   hasMediciones() {
-    const mediciones = this.getMediciones();
-    return Boolean(mediciones.length);
-  }
-  addMedicion(medicion: Medicion) {
-    const duplicated = this.getMediciones().find(
-      (m) => m.getID() === medicion.getID()
-    );
-    if (duplicated) throw new MedicionRepetidaError();
-    this.mediciones.push(medicion);
+    return this.mediciones.length > 0;
   }
 
   getLastMedicion() {
-    const sorted = this.getMediciones()
+    const sorted = this.mediciones
       .slice()
       .sort((m1, m2) => m1.getA_B_Sobre2() - m2.getA_B_Sobre2());
     return sorted.at(-1);
   }
+
   getNextMedicionParams() {
     const lastMedicion = this.getLastMedicion();
     if (!lastMedicion)
@@ -88,19 +82,27 @@ export class SondeoElectrico {
     const lastMedicionIndex = SondeoElectrico.TABLA_A_B_SOBRE_2.findIndex(
       (a_b_sobre2) => a_b_sobre2 === lastMedicion.getA_B_Sobre2()
     );
-    const nextMedicionParams = {
+    return {
       a_b_sobre2: SondeoElectrico.TABLA_A_B_SOBRE_2[lastMedicionIndex + 1],
     };
-    return nextMedicionParams;
+  }
+
+  addMedicion(medicion: Medicion) {
+    const duplicated = this.mediciones.find(
+      (m) => m.getID() === medicion.getID()
+    );
+    if (duplicated) throw new MedicionRepetidaError();
+    this.mediciones.push(medicion);
   }
 
   removeLastMedicion() {
     this.mediciones.pop();
   }
+
   getMedicionByID(id: string) {
-    const medicion = this.getMediciones().find((m) => m.getID() === id);
-    return medicion;
+    return this.mediciones.find((m) => m.getID() === id);
   }
+
   toJSON() {
     return {
       provincia: this.provincia,

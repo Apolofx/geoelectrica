@@ -15,35 +15,67 @@ export class Estudio {
   ) {
     makeAutoObservable(this);
   }
+
   getCliente() {
     return this.nombre_cliente;
   }
+
   getFecha() {
     return this.fecha;
   }
+
   getZona() {
     return this.zona;
   }
+
   getSondeos() {
     return this.sondeos;
   }
+
+  getID() {
+    return this.id;
+  }
+
+  hasSondeos() {
+    return this.sondeos.length > 0;
+  }
+
+  getLastSondeo() {
+    if (!this.hasSondeos()) throw new EstudioEmptySondeos(this.getID());
+    return this.sondeos[this.sondeos.length - 1];
+  }
+
+  getNextSevNro() {
+    if (!this.hasSondeos()) return 1;
+    return this.getLastSondeo().getSevNro() + 1;
+  }
+
   addSondeo(sondeo: SondeoElectrico) {
     this.sondeos.push(sondeo);
   }
+
   removeLastSondeo() {
     this.sondeos.pop();
   }
+
   emptySondeos() {
     this.sondeos = [];
   }
+
   removeSondeoByID(id: number) {
     this.sondeos = this.sondeos.filter((sondeo) => sondeo.getID() !== id);
   }
+
   getSondeoByID(id: number) {
     const sondeo = this.sondeos.find((sondeo) => sondeo.getID() === id);
     if (!sondeo) throw new SondeoNotFound();
     return sondeo;
   }
+
+  getSondeoBySevNro(sevNro: number) {
+    return this.sondeos.find((sondeo) => sondeo.getSevNro() === sevNro);
+  }
+
   toJSON() {
     return {
       nombre_cliente: this.nombre_cliente,
@@ -53,22 +85,5 @@ export class Estudio {
       sondeos: this.sondeos.map((sondeo) => sondeo.toJSON()),
     };
   }
-  getID() {
-    return this.id;
-  }
-
-  hasSondeos() {
-    return this.sondeos.length > 0;
-  }
-  getLastSondeo() {
-    if (!this.hasSondeos()) throw new EstudioEmptySondeos(this.getID());
-    return this.sondeos[this.sondeos.length - 1];
-  }
-  getSondeoBySevNro(sevNro: number) {
-    return this.sondeos.find((sondeo) => sondeo.getSevNro() === sevNro);
-  }
-  getNextSevNro() {
-    if (!this.hasSondeos()) return 1;
-    return this.getLastSondeo().getSevNro() + 1;
-  }
 }
+

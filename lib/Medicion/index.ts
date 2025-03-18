@@ -5,6 +5,7 @@ export class Medicion {
     private intensidad: number,
     private tension: number
   ) {}
+
   toJSON() {
     return {
       a_b_sobre2: this.a_b_sobre2,
@@ -15,21 +16,27 @@ export class Medicion {
       id: this.getID(),
     };
   }
+
   getID() {
     return `${this.a_b_sobre2}-${this.mn}`;
   }
+
   getResistividadAparente() {
     return (this.tension / this.intensidad) * Math.PI * this.a_b_sobre2 ** 2;
   }
+
   getA_B_Sobre2() {
     return this.a_b_sobre2;
   }
+
   getMN() {
     return this.mn;
   }
+
   getIntensidad() {
     return this.intensidad;
   }
+
   getTension() {
     return this.tension;
   }
