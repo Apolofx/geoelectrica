@@ -2,7 +2,7 @@ import { action, autorun, makeObservable, observable } from "mobx";
 import { Estudio } from "../Estudio";
 import { EstudioNotFoundError } from "../exceptions";
 import { SondeoElectrico } from "../SondeoElectrico";
-import { Medicion } from "lib/Medicion";
+import { Medicion } from "../Medicion";
 
 export abstract class HistorialDeEstudios {
   abstract addEstudio(estudio: Estudio): Estudio[];

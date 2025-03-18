@@ -1,1 +1,1 @@
-export const DEFAULT_MN = 2;
+export const DEFAULT_MN = 1;

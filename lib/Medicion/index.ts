@@ -16,13 +16,10 @@ export class Medicion {
     };
   }
   getID() {
-    return this.a_b_sobre2;
+    return `${this.a_b_sobre2}-${this.mn}`;
   }
   getResistividadAparente() {
-    return (
-      ((this.tension / this.intensidad) * Math.PI * this.a_b_sobre2 ** 2) /
-      this.mn
-    );
+    return (this.tension / this.intensidad) * Math.PI * this.a_b_sobre2 ** 2;
   }
   getA_B_Sobre2() {
     return this.a_b_sobre2;
